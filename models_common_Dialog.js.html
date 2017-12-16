@@ -26,13 +26,13 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>var afimport = require("afimport");
-var Shared = afimport.require("shared");
-var MessageModel = afimport.require('Message');
-var DialogTipModel = afimport.require('DialogTip');
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
-var _ = require('underscore');
+            <pre class="prettyprint source linenums"><code>const afimport = require("afimport");
+const Shared = afimport.require("shared");
+const MessageModel = afimport.require('Message');
+const DialogTipModel = afimport.require('DialogTip');
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+const _ = require('underscore');
 
 /**
  * The data-layer
@@ -47,7 +47,7 @@ var _ = require('underscore');
  * @readonly
  * @enum {string}
  */
-var PermissionLevelEnum = {
+const PermissionLevelEnum = {
     /**
      * anyone
      */
@@ -66,7 +66,7 @@ var PermissionLevelEnum = {
  *
  * @constructor PermissionModel
  */
-var PermissionSchema = new Schema({
+const PermissionSchema = new Schema({
     /**
      * @memberof module:models/DialogModel~PermissionsModel
      * @instance
@@ -117,7 +117,7 @@ var PermissionSchema = new Schema({
  * @private
  * @type {{toObject: {virtuals: boolean}, toJSON: {virtuals: boolean}}}
  */
-var schemaOptions = {
+const schemaOptions = {
     toObject: {
         virtuals: true
     },
@@ -130,7 +130,7 @@ var schemaOptions = {
  *
  * @constructor DialogModel
  */
-var DialogSchema = new Schema({
+const DialogSchema = new Schema({
     /**
      * @memberof module:models/DialogModel~DialogModel
      * @instance
@@ -248,7 +248,7 @@ DialogSchema.methods.saveNewDialog = function (currentUser) {
         self.save(function (err) {
             if (err) return reject(err);
 
-            DialogModel.populate(self, "_id allUsers creator", function (err, dialog) {
+            DialogModel.populate(self, "allUsers creator", function (err, dialog) {
                 if (err) return reject(err);
                 resolve(dialog);
             });
@@ -310,7 +310,7 @@ DialogSchema.statics.addUser = function (userId, dialogId, currentUser, permissi
 /**
  * @function dialogsForUser
  * @memberof module:models/DialogModel~DialogModel
- * 
+ *
  * @param {UserModel} user
  * @return {Promise.&lt;Array.&lt;DialogModel, Error>>}
  */
@@ -701,7 +701,7 @@ DialogSchema.statics.removeUser = function (userId, dialogId, currentUser, permi
 
 mongoose.model('DialogModel', DialogSchema);
 
-var DialogModel = mongoose.model('DialogModel');
+const DialogModel = mongoose.model('DialogModel');
 module.exports = DialogModel;
 </code></pre>
         </article>
@@ -713,13 +713,13 @@ module.exports = DialogModel;
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-afimport.html">afimport</a></li><li><a href="module-models_DeviceModel.html">models/DeviceModel</a></li><li><a href="module-models_DialogModel.html">models/DialogModel</a></li><li><a href="module-models_DialogTipModel.html">models/DialogTipModel</a></li><li><a href="module-models_LocationModel.html">models/LocationModel</a></li><li><a href="module-models_MessageModel.html">models/MessageModel</a></li><li><a href="module-models_UserModel.html">models/UserModel</a></li><li><a href="module-Router_Alfa.html">Router/Alfa</a></li></ul><h3>Classes</h3><ul><li><a href="AccessTokenModel.html">AccessTokenModel</a></li><li><a href="module-afimport-AFImortModule.html">AFImortModule</a></li><li><a href="module-models_DeviceModel-DeviceModel.html">DeviceModel</a></li><li><a href="module-models_DialogModel-DialogModel.html">DialogModel</a></li><li><a href="module-models_DialogModel-PermissionModel.html">PermissionModel</a></li><li><a href="module-models_DialogTipModel-DialogTipModel.html">DialogTipModel</a></li><li><a href="module-models_LocationModel-LocationModel.html">LocationModel</a></li><li><a href="module-models_MessageModel-MessageModel.html">MessageModel</a></li><li><a href="module-models_MessageModel-PayloadModel.html">PayloadModel</a></li><li><a href="module-models_UserModel-UserModel.html">UserModel</a></li><li><a href="RefreshTokenModel.html">RefreshTokenModel</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AccessTokenSchema">AccessTokenSchema</a></li><li><a href="global.html#connect">connect</a></li><li><a href="global.html#getUser">getUser</a></li><li><a href="global.html#RefreshTokenSchema">RefreshTokenSchema</a></li><li><a href="global.html#send">send</a></li><li><a href="global.html#sendMessageToDevice">sendMessageToDevice</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-afimport.html">afimport</a></li><li><a href="module-DB.html">DB</a></li><li><a href="module-models.html">models</a></li><li><a href="module-models_AccessToken.html">models/AccessToken</a></li><li><a href="module-models_DeviceModel.html">models/DeviceModel</a></li><li><a href="module-models_DialogModel.html">models/DialogModel</a></li><li><a href="module-models_DialogTipModel.html">models/DialogTipModel</a></li><li><a href="module-models_LocationModel.html">models/LocationModel</a></li><li><a href="module-models_MessageModel.html">models/MessageModel</a></li><li><a href="module-Router_Alfa.html">Router/Alfa</a></li><li><a href="module-Shared.html">Shared</a></li><li><a href="module-Socket.html">Socket</a></li></ul><h3>Classes</h3><ul><li><a href="Logger.html">Logger</a></li><li><a href="module-afimport-AFImortModule.html">AFImortModule</a></li><li><a href="module-models_AccessToken-AccessTokenModel.html">AccessTokenModel</a></li><li><a href="module-models_DeviceModel-DeviceModel.html">DeviceModel</a></li><li><a href="module-models_DialogModel-DialogModel.html">DialogModel</a></li><li><a href="module-models_DialogModel-PermissionModel.html">PermissionModel</a></li><li><a href="module-models_DialogTipModel-DialogTipModel.html">DialogTipModel</a></li><li><a href="module-models_LocationModel-LocationModel.html">LocationModel</a></li><li><a href="module-models_MessageModel-MessageModel.html">MessageModel</a></li><li><a href="module-models_MessageModel-PayloadModel.html">PayloadModel</a></li><li><a href="module-models-UserModel.html">UserModel</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Tue Dec 12 2017 08:54:38 GMT-0800 (PST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sat Dec 16 2017 14:34:31 GMT-0800 (PST)
 </footer>
 
 <script> prettyPrint(); </script>

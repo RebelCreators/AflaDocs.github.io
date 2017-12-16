@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: lib/shared.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: lib/shared.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const afimport = require("afimport");
+const logger = afimport.require("logger");
+
+
+/**
+ * Shared
+ * @module Shared
+ */
+
+
+/**
+ *
+ * Gets the first value in an array.
+ *
+ * @function first
+ * @memberof module:Shared
+ *
+ * @param {Array&lt;T>} arr
+ * @return {?T}
+ */
+module.exports.first = function (arr) {
+    return arr.length > 0 ? arr[0] : null;
+};
+
+
+/**
+ *
+ * Gets the last value in an array.
+ *
+ * @function last
+ * @memberof module:Shared
+ *
+ * @param {Array&lt;T>} arr
+ * @return {?T}
+ */
+module.exports.last = function (arr) {
+    return arr.length > 0 ? arr[arr.length - 1] : null;
+};
+
+
+/**
+ * Maps an object's keys and values to a new object matching keys of the second object passed in.
+ *
+ * @function caseInsensitiveMap
+ * @memberof module:Shared
+ *
+ * @param {Object&lt;T>} from
+ * @param {Object&lt;T>} object
+ * @param {boolean} includeNUll decides if null values should be ignored or explicitly added
+ * @return {Object&lt;T>}
+ */
+module.exports.caseInsensitiveMap = function (from, object, includeNUll) {
+    var lowerCased = {};
+    var newObj = {};
+    for (key in object) {
+        lowerCased[key.toLowerCase()] = object[key];
+    }
+
+    for (key in from) {
+        var value = lowerCased[key.toLowerCase()];
+        if (value || includeNUll) {
+            newObj[key] = value;
+        }
+    }
+
+    return newObj;
+};
+
+
+/**
+ *
+ * @function printObj
+ * @memberof module:Shared
+ *
+ * Prints an object's keys and values as JSON
+ * @param {string} obj
+ */
+module.exports.printObj = function (obj) {
+    logger.info("" + JSON.stringify(obj));
+};
+
+
+// in node 0.9.0, process.nextTick fired before IO events, but setImmediate did
+// not yet exist. before 0.9.0, process.nextTick between IO events, and after
+// 0.9.0 it fired before IO events. if setImmediate and process.nextTick are
+// both missing fall back to the tick shim.
+var tick =
+    (global.process &amp;&amp; process.versions &amp;&amp; process.versions.node === '0.9.0') ?
+        tickShim :
+        (global.setImmediate || (global.process &amp;&amp; process.nextTick) || tickShim);
+
+function tickShim(fn) {
+    setTimeout(fn, 1);
+}
+
+
+/**
+ *
+ * Asynchronously iterates an array or object keys
+ * @function asyncForEachAsync
+ * @memberof module:Shared
+ *
+ * @param {Array&lt;T>|Object&lt;T>} object
+ * @param {function(T)} iter
+ * @param {function(Object&lt;T>)} completion
+ */
+module.exports.asyncForEachAsync = function (object, iter, completion) {
+    var keys = Object.keys(object), offset = 0;
+    if (!keys || keys.length == 0) {
+        completion([]);
+        return;
+    }
+    (function next() {
+        // invoke the iterator function
+
+        var nextTick = function () {
+            if (++offset &lt; keys.length) {
+                tick(next);
+            } else {
+                if (completion) {
+                    completion.call(object);
+                }
+            }
+        };
+        iter.call(object, nextTick, keys[offset], object[keys[offset]], object);
+    })();
+};
+
+
+/**
+ * Initializes a prototype with a superclass
+ *
+ * @function initClass
+ * @memberof module:Shared
+ * 
+ * @param Clazz
+ * @param Superclass
+ */
+module.exports.initClass = function (Clazz, Superclass) {
+    if (Superclass) {
+        Clazz.prototype = Object.create(Superclass.prototype);
+        Clazz.prototype.constructor = Clazz;
+        Clazz.super = Superclass;
+    }
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-afimport.html">afimport</a></li><li><a href="module-DB.html">DB</a></li><li><a href="module-models.html">models</a></li><li><a href="module-models_AccessToken.html">models/AccessToken</a></li><li><a href="module-models_DeviceModel.html">models/DeviceModel</a></li><li><a href="module-models_DialogModel.html">models/DialogModel</a></li><li><a href="module-models_DialogTipModel.html">models/DialogTipModel</a></li><li><a href="module-models_LocationModel.html">models/LocationModel</a></li><li><a href="module-models_MessageModel.html">models/MessageModel</a></li><li><a href="module-Router_Alfa.html">Router/Alfa</a></li><li><a href="module-Shared.html">Shared</a></li><li><a href="module-Socket.html">Socket</a></li></ul><h3>Classes</h3><ul><li><a href="Logger.html">Logger</a></li><li><a href="module-afimport-AFImortModule.html">AFImortModule</a></li><li><a href="module-models_AccessToken-AccessTokenModel.html">AccessTokenModel</a></li><li><a href="module-models_DeviceModel-DeviceModel.html">DeviceModel</a></li><li><a href="module-models_DialogModel-DialogModel.html">DialogModel</a></li><li><a href="module-models_DialogModel-PermissionModel.html">PermissionModel</a></li><li><a href="module-models_DialogTipModel-DialogTipModel.html">DialogTipModel</a></li><li><a href="module-models_LocationModel-LocationModel.html">LocationModel</a></li><li><a href="module-models_MessageModel-MessageModel.html">MessageModel</a></li><li><a href="module-models_MessageModel-PayloadModel.html">PayloadModel</a></li><li><a href="module-models-UserModel.html">UserModel</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sat Dec 16 2017 14:34:31 GMT-0800 (PST)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

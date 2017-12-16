@@ -26,20 +26,20 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>var afimport = require("afimport");
-var Shared = afimport.require("shared");
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
-var bcrypt = require('bcrypt-nodejs');
+            <pre class="prettyprint source linenums"><code>const afimport = require("afimport");
+const Shared = afimport.require("shared");
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+const bcrypt = require('bcrypt-nodejs');
 
 /**
  * The data-layer
- * @module models/UserModel
+ * @module models
  */
 
 /**
  * This callback is used to get a user with credentials.
- * @callback models/UserModel~GetUserCallBack
+ * @callback models~GetUserCallBack
  * @param {Error} error
  * @param {UserModel} userModel
  */
@@ -47,12 +47,12 @@ var bcrypt = require('bcrypt-nodejs');
 /**
  * User Gender Enum.
  *
- * @memberof module:models/UserModel~UserModel
+ * @memberof module:models~UserModel
  *
  * @readonly
  * @enum {string}
  */
-var UserGenderEnum = {
+const UserGenderEnum = {
     /**
      * none
      */
@@ -71,23 +71,23 @@ var UserGenderEnum = {
  *
  * @constructor UserModel
  */
-var UserSchema = new Schema({
+const UserSchema = new Schema({
         /**
-         * @memberof module:models/UserModel~UserModel
+         * @memberof module:models~UserModel
          * @instance
          *
          * @type {string}
          */
         firstName: String,
         /**
-         * @memberof module:models/UserModel~UserModel
+         * @memberof module:models~UserModel
          * @instance
          *
          * @type {string}
          */
         lastName: String,
         /**
-         * @memberof module:models/UserModel~UserModel
+         * @memberof module:models~UserModel
          * @instance
          *
          * @type {string}
@@ -97,7 +97,7 @@ var UserSchema = new Schema({
             required: true
         },
         /**
-         * @memberof module:models/UserModel~UserModel
+         * @memberof module:models~UserModel
          * @instance
          *
          * @type {string}
@@ -107,14 +107,14 @@ var UserSchema = new Schema({
             required: true
         },
         /**
-         * @memberof module:models/UserModel~UserModel
+         * @memberof module:models~UserModel
          * @instance
          *
          * @type {string}
          */
         avatar: String,
         /**
-         * @memberof module:models/UserModel~UserModel
+         * @memberof module:models~UserModel
          * @instance
          *
          * @default UserGenderEnum.NONE
@@ -127,7 +127,7 @@ var UserSchema = new Schema({
             default: UserGenderEnum.NONE
         },
         /**
-         * @memberof module:models/UserModel~UserModel
+         * @memberof module:models~UserModel
          * @instance
          *
          * @type {Object}
@@ -151,7 +151,7 @@ UserSchema.statics.minimumPasswordLength = 4;
 /**
  *
  * @function fromPublicJSON
- * @memberof module:models/UserModel~UserModel
+ * @memberof module:models~UserModel
  *
  * @param {Object} json
  * @return {UserModel}
@@ -172,7 +172,7 @@ UserSchema.statics.fromPublicJSON = function (json) {
 /**
  *
  * @function validateUser
- * @memberof module:models/UserModel~UserModel
+ * @memberof module:models~UserModel
  * @instance
  *
  * @return {Promise}
@@ -199,7 +199,7 @@ UserSchema.methods.validateUser = function () {
 /**
  *
  * @function saveNewUser
- * @memberof module:models/UserModel~UserModel
+ * @memberof module:models~UserModel
  * @instance
  *
  * @return {Promise.&lt;UserModel, Error>}
@@ -223,7 +223,7 @@ UserSchema.methods.saveNewUser = function () {
 /**
  *
  * @function getUser
- * @memberof module:models/UserModel~UserModel
+ * @memberof module:models~UserModel
  *
  * @param {string} username
  * @param {string} password
@@ -269,7 +269,7 @@ UserSchema.statics.getUser$ = function (username, password, callback) {
 /**
  *
  * @function hashPassword
- * @memberof module:models/UserModel~UserModel
+ * @memberof module:models~UserModel
  *
  * @param password
  * @return {Promise.&lt;string, Error>}
@@ -289,7 +289,7 @@ UserSchema.statics.hashPassword = function (password) {
 /**
  *
  * @function getUserById
- * @memberof module:models/UserModel~UserModel
+ * @memberof module:models~UserModel
  *
  * @param {string} userId
  * @return {Promise.&lt;UserModel, Error>}
@@ -308,7 +308,7 @@ UserSchema.statics.getUserById = function (userId) {
 /**
  *
  * @function getUserByIds
- * @memberof module:models/UserModel~UserModel
+ * @memberof module:models~UserModel
  *
  * @param {Array.&lt;string>} userIds
  * @return {Promise.&lt;Array.&lt;UserModel>, Error>}
@@ -327,7 +327,7 @@ UserSchema.statics.getUsersByIds = function (userIds) {
 /**
  *
  * @function getUserByUserName
- * @memberof module:models/UserModel~UserModel
+ * @memberof module:models~UserModel
  *
  * @param {string} userName
  * @return {Promise.&lt;UserModel, Error>}
@@ -349,7 +349,7 @@ UserSchema.statics.getUserByUserName = function (userName) {
 /**
  *
  * @function getUserByUserNames
- * @memberof module:models/UserModel~UserModel
+ * @memberof module:models~UserModel
  *
  * @param {Array.&lt;string>} userNames
  * @return {Promise.&lt;Array.&lt;UserModel>, Error>}
@@ -368,7 +368,7 @@ UserSchema.statics.getUsersByUserNames = function (userNames) {
 /**
  *
  * @function updateUser
- * @memberof module:models/UserModel~UserModel
+ * @memberof module:models~UserModel
  *
  * @param {Object} json
  * @return {Promise.&lt;UserModel, Error>}
@@ -391,7 +391,7 @@ UserSchema.statics.updateUser = function (json) {
 
 mongoose.model('UserModel', UserSchema);
 
-var UserModel = mongoose.model('UserModel');
+const UserModel = mongoose.model('UserModel');
 module.exports = UserModel;
 </code></pre>
         </article>
@@ -403,13 +403,13 @@ module.exports = UserModel;
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-afimport.html">afimport</a></li><li><a href="module-models_DeviceModel.html">models/DeviceModel</a></li><li><a href="module-models_DialogModel.html">models/DialogModel</a></li><li><a href="module-models_DialogTipModel.html">models/DialogTipModel</a></li><li><a href="module-models_LocationModel.html">models/LocationModel</a></li><li><a href="module-models_MessageModel.html">models/MessageModel</a></li><li><a href="module-models_UserModel.html">models/UserModel</a></li><li><a href="module-Router_Alfa.html">Router/Alfa</a></li></ul><h3>Classes</h3><ul><li><a href="AccessTokenModel.html">AccessTokenModel</a></li><li><a href="module-afimport-AFImortModule.html">AFImortModule</a></li><li><a href="module-models_DeviceModel-DeviceModel.html">DeviceModel</a></li><li><a href="module-models_DialogModel-DialogModel.html">DialogModel</a></li><li><a href="module-models_DialogModel-PermissionModel.html">PermissionModel</a></li><li><a href="module-models_DialogTipModel-DialogTipModel.html">DialogTipModel</a></li><li><a href="module-models_LocationModel-LocationModel.html">LocationModel</a></li><li><a href="module-models_MessageModel-MessageModel.html">MessageModel</a></li><li><a href="module-models_MessageModel-PayloadModel.html">PayloadModel</a></li><li><a href="module-models_UserModel-UserModel.html">UserModel</a></li><li><a href="RefreshTokenModel.html">RefreshTokenModel</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AccessTokenSchema">AccessTokenSchema</a></li><li><a href="global.html#connect">connect</a></li><li><a href="global.html#getUser">getUser</a></li><li><a href="global.html#RefreshTokenSchema">RefreshTokenSchema</a></li><li><a href="global.html#send">send</a></li><li><a href="global.html#sendMessageToDevice">sendMessageToDevice</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-afimport.html">afimport</a></li><li><a href="module-DB.html">DB</a></li><li><a href="module-models.html">models</a></li><li><a href="module-models_AccessToken.html">models/AccessToken</a></li><li><a href="module-models_DeviceModel.html">models/DeviceModel</a></li><li><a href="module-models_DialogModel.html">models/DialogModel</a></li><li><a href="module-models_DialogTipModel.html">models/DialogTipModel</a></li><li><a href="module-models_LocationModel.html">models/LocationModel</a></li><li><a href="module-models_MessageModel.html">models/MessageModel</a></li><li><a href="module-Router_Alfa.html">Router/Alfa</a></li><li><a href="module-Shared.html">Shared</a></li><li><a href="module-Socket.html">Socket</a></li></ul><h3>Classes</h3><ul><li><a href="Logger.html">Logger</a></li><li><a href="module-afimport-AFImortModule.html">AFImortModule</a></li><li><a href="module-models_AccessToken-AccessTokenModel.html">AccessTokenModel</a></li><li><a href="module-models_DeviceModel-DeviceModel.html">DeviceModel</a></li><li><a href="module-models_DialogModel-DialogModel.html">DialogModel</a></li><li><a href="module-models_DialogModel-PermissionModel.html">PermissionModel</a></li><li><a href="module-models_DialogTipModel-DialogTipModel.html">DialogTipModel</a></li><li><a href="module-models_LocationModel-LocationModel.html">LocationModel</a></li><li><a href="module-models_MessageModel-MessageModel.html">MessageModel</a></li><li><a href="module-models_MessageModel-PayloadModel.html">PayloadModel</a></li><li><a href="module-models-UserModel.html">UserModel</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Tue Dec 12 2017 08:54:38 GMT-0800 (PST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sat Dec 16 2017 14:34:31 GMT-0800 (PST)
 </footer>
 
 <script> prettyPrint(); </script>
